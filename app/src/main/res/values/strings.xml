@@ -15,4 +15,5 @@
     <string name="title_activity_resipe_list">ResipeList</string>
     <string name="title_activity_recipe_info">RecipeInfo</string>
     <string name="title_activity_web">Web</string>
+    <string name="title_activity_favs_list">FavsList</string>
 </resources>

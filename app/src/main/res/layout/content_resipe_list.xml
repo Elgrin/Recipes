@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:text="Nothing found..."
             android:layout_gravity="center"
+            android:textSize="20sp"
             android:visibility="gone"
             android:id="@+id/text_error"/>
     </FrameLayout>

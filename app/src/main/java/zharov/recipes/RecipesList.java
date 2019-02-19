@@ -61,20 +61,20 @@ public class RecipesList {
                     NodeList nameList = element.getElementsByTagName("title");
                     Element nameElement = (Element) nameList.item(0);
                     nameList = nameElement.getChildNodes();
-                    Recipe[Iterator] = nameList.item(0).getNodeValue();
+                    Recipe[Iterator] = nameList.item(0).getNodeValue().trim();
                     Log.v("URL", "Recipe " + Recipe[Iterator]);
 
                     NodeList nameList2 = element.getElementsByTagName("href");
                     Element nameElement2 = (Element) nameList2.item(0);
                     nameList2 = nameElement2.getChildNodes();
-                    Link[Iterator] = nameList2.item(0).getNodeValue();
+                    Link[Iterator] = nameList2.item(0).getNodeValue().trim();
                     Log.v("URL", "Link " + Link[Iterator]);
 
 
                     NodeList nameList3 = element.getElementsByTagName("ingredients");
                     Element nameElement3 = (Element) nameList3.item(0);
                     nameList3 = nameElement3.getChildNodes();
-                    Indigrients[Iterator] = nameList3.item(0).getNodeValue();
+                    Indigrients[Iterator] = nameList3.item(0).getNodeValue().trim();
                     Log.v("URL", "Recipe " + Indigrients[Iterator]);
 
 

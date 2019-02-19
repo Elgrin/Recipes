@@ -1,6 +1,9 @@
 package zharov.recipes;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,9 +60,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_search) {
-            // Handle the camera action
+            Intent intent = new Intent(MainActivity.this, ResipeList.class);
+            startActivity(intent);
         } else if (id == R.id.nav_favs) {
-
+            Intent intent = new Intent(MainActivity.this, FavsList.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -66,36 +72,46 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
+
     public void SearchRecipes(View view) throws java.net.MalformedURLException,
             javax.xml.parsers.ParserConfigurationException,
             java.io.IOException,
             org.xml.sax.SAXException{
 
+
         if(view != null) {
 
-            //http://www.recipepuppy.com/api/?i=&q=&p=1&format=xml
+            if(isOnline()) {
+                //http://www.recipepuppy.com/api/?i=&q=&p=1&format=xml
+                String url = getResources().getString(R.string.link) + "i=";
 
-            String url =  getResources().getString(R.string.link) + "i=";
+                TextView textViewInd = findViewById(R.id.ingredients_edit);
 
-            TextView textViewInd = findViewById(R.id.ingredients_edit);
+                if (textViewInd != null) {
+                    url += textViewInd.getText() + "&q=";
 
-            if(textViewInd !=null) {
-                url += textViewInd.getText() + "&q=";
+                    TextView textViewDish = findViewById(R.id.dish_name_edit);
 
-                TextView textViewDish = findViewById(R.id.dish_name_edit);
+                    if (textViewDish != null) {
+                        url += textViewDish.getText() + "&"
+                                + getResources().getString(R.string.link_type) + "&p=";
 
-                if(textViewDish !=null) {
-                    url+=textViewDish.getText() + "&"
-                            + getResources().getString(R.string.link_type) + "&p=";
+                        Log.v("URL", url + "1");
 
-                    Log.v("URL", url+ "1");
-
-                    Intent intent = new Intent(MainActivity.this, ResipeList.class);
-                    intent.putExtra("url", url);
-                    intent.putExtra("page", 1);
-                    startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this, ResipeList.class);
+                        intent.putExtra("url", url);
+                        intent.putExtra("page", 1);
+                        startActivity(intent);
+                    }
                 }
-
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "There is no Internet connection!", Toast.LENGTH_SHORT).show();
             }
 
         }

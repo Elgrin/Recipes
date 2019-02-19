@@ -13,15 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".FavsList"
+            android:label="@string/title_activity_favs_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Web"
             android:label="@string/title_activity_web"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RecipeInfo"
             android:label="@string/title_activity_recipe_info"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ResipeList"
             android:label="@string/title_activity_resipe_list"

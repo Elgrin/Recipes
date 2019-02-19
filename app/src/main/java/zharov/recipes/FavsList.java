@@ -12,40 +12,38 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.support.v7.widget.LinearLayoutManager;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
+public class FavsList extends AppCompatActivity  implements MyRecyclerViewAdapter.ItemClickListener {
+
 
 
     private List<String> recipesListArray = new ArrayList<>();
-    private RecipesList recipesList;
+    private XmlSavedReader recipesList;
     MyRecyclerViewAdapter adapter;
-    private String url;
-    private int Page;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resipe_list);
+        setContentView(R.layout.activity_favs_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        url = getIntent().getExtras().getString("url");
-        Page = getIntent().getExtras().getInt("page");
 
         final RecyclerView ricipesView = findViewById(R.id.recipes_list);
         final ProgressBar ring = findViewById(R.id.loading_ring);
 
         if(recipesList == null) {
-            recipesListArray.add("");
+            recipesListArray.add("Loading...");
         }
 
         // set up the RecyclerView
@@ -64,13 +62,13 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent(ResipeList.this, RecipeInfo.class);
+        Intent intent = new Intent(FavsList.this, RecipeInfo.class);
         intent.putExtra("recipe", recipesList.getRecipe()[position]);
         intent.putExtra("link", recipesList.getLink()[position]);
-        intent.putExtra("inds", recipesList.getIndigrients()[position]);
+        intent.putExtra("inds", recipesList.getInds()[position]);
+        intent.putExtra("visibility", false);
         startActivity(intent);
     }
-
 
     protected void AsyncCall() {
 
@@ -79,21 +77,18 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
         findViewById(R.id.recipes_list).setVisibility(View.GONE);
         findViewById(R.id.text_error).setVisibility(View.GONE);
 
-        findViewById(R.id.next_btn).setVisibility(View.GONE);
-        findViewById(R.id.previous_btn).setVisibility(View.GONE);
+        final MyTaskLoad mt;
+        mt = new MyTaskLoad();
 
-        final MyTask mt;
-        mt = new MyTask();
-        mt.setPage(Page);
-        mt.setUrl(url);
         mt.setAdapter(adapter);
+        mt.setContext(getApplicationContext());
         mt.execute();
 
         final RecyclerView ricipesView = findViewById(R.id.recipes_list);
         final ProgressBar ring = findViewById(R.id.loading_ring);
 
 
-        mt.OnListener(new MyTask.OnTaskCompleted() {
+        mt.OnListener(new MyTaskLoad.OnTaskCompleted() {
             @Override
             public void onTaskCompleted() {
 
@@ -105,41 +100,21 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
                         ring.setVisibility(View.GONE);
 
                         Log.v("RECIPE",  "ZA WARUDO");
-                        recipesList = mt.rList;
+                        recipesList = mt.xmlSavedReader;
                         recipesListArray.clear();
                         recipesListArray.addAll(Arrays.asList(recipesList.getRecipe()));
                         //recipesListArray.add(0, "Haha");
                         Log.v("RECIPE",  Integer.toString(recipesListArray.size()));
                         adapter.notifyItemRangeChanged(0, recipesListArray.size());
                         ricipesView.setVisibility(View.VISIBLE);
+                        Log.v("RECIPE",  Integer.toString(recipesList.getInds().length));
 
-                        if(recipesList.getIndigrients().length != 0) {
-                            findViewById(R.id.next_btn).setVisibility(View.VISIBLE);
-                        }
-                        else {
-                            findViewById(R.id.next_btn).setVisibility(View.GONE);
-                            findViewById(R.id.text_error).setVisibility(View.VISIBLE);
-                        }
-
-                        if(Page!=1) {
-                            findViewById(R.id.previous_btn).setVisibility(View.VISIBLE);
-                        }
-                        Log.v("RECIPE",  Integer.toString(recipesList.getIndigrients().length));
                     }
                 }, 1000);
 
             }
         });
 
-    }
-    public void onNextClick(View view) {
-        Page++;
-        AsyncCall();
-    }
-
-    public void onPreviousClick(View view) {
-        Page--;
-        AsyncCall();
     }
 
 }
