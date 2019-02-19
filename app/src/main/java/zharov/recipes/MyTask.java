@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -14,10 +15,11 @@ class MyTask extends AsyncTask<Void, Void, Void> {
     private String url;
     private int Page;
     protected RecipesList rList;
-
+    protected MyRecyclerViewAdapter adapter;
 
     public interface OnTaskCompleted{
         void onTaskCompleted();
+        //void onTaskExecute();
     }
 
     private OnTaskCompleted listener;
@@ -27,6 +29,7 @@ class MyTask extends AsyncTask<Void, Void, Void> {
     }
 
 
+    public void setAdapter(MyRecyclerViewAdapter adapter) {this.adapter = adapter;}
     public void setUrl(String url) {this.url = url;}
     public void setPage(int Page) {this.Page = Page;}
 
@@ -39,7 +42,6 @@ class MyTask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         try {
             rList = new RecipesList(url, Page);
-            listener.onTaskCompleted();
         } catch (Exception e) {
         }
         return null;
@@ -48,6 +50,13 @@ class MyTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
+        listener.onTaskCompleted();
+        //adapter.notifyItemRangeChanged(0, rList.getRecipe().length);
+    }
 
+    @Override
+    protected void onProgressUpdate(Void... results) {
+        super.onProgressUpdate(results);
+        //listener.onTaskExecute();
     }
 }

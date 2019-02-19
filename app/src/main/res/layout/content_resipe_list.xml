@@ -7,10 +7,57 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ResipeList"
     tools:showIn="@layout/activity_resipe_list">
-    
-    <android.support.v7.widget.RecyclerView
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recipes_list"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dip"
+            android:id="@+id/loading_ring"
+            android:indeterminateDrawable="@drawable/spinner_ring"
+            android:indeterminateOnly="true"
+            android:layout_gravity="center" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recipes_list"
+            android:visibility="gone"/>
+    </FrameLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous"
+            android:id="@+id/previous_btn"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"
+            android:onClick="onPreviousClick"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:id="@+id/next_btn"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:visibility="gone"
+            android:onClick="onNextClick"/>
+    </RelativeLayout>
+    </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
