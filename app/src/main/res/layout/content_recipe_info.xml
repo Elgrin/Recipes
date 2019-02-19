@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".RecipeInfo"
+    tools:showIn="@layout/activity_recipe_info">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title_recipe"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/link_recipe"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@drawable/mailto"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/inds_recipe"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

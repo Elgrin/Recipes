@@ -13,4 +13,6 @@
     <string name="text_dish">Type dish name:</string>
     <string name="text_ingredients">Type ingredients (comma delimited):</string>
     <string name="title_activity_resipe_list">ResipeList</string>
+    <string name="title_activity_recipe_info">RecipeInfo</string>
+    <string name="title_activity_web">Web</string>
 </resources>

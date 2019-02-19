@@ -1,5 +1,6 @@
 package zharov.recipes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -63,7 +64,14 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "You clicked " + adapter.getItem(position) +
+                " on row number " + position, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(ResipeList.this, RecipeInfo.class);
+        intent.putExtra("recipe", recipesList.getRecipe()[position]);
+        intent.putExtra("link", recipesList.getLink()[position]);
+        intent.putExtra("inds", recipesList.getIndigrients()[position]);
+        startActivity(intent);
     }
 
 
@@ -72,6 +80,7 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
 
         findViewById(R.id.loading_ring).setVisibility(View.VISIBLE);
         findViewById(R.id.recipes_list).setVisibility(View.GONE);
+        findViewById(R.id.text_error).setVisibility(View.GONE);
 
         findViewById(R.id.next_btn).setVisibility(View.GONE);
         findViewById(R.id.previous_btn).setVisibility(View.GONE);
@@ -106,13 +115,19 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
                         Log.v("RECIPE",  Integer.toString(recipesListArray.size()));
                         adapter.notifyItemRangeChanged(0, recipesListArray.size());
                         ricipesView.setVisibility(View.VISIBLE);
-                        if(recipesList != null) {
+
+                        if(recipesList.getIndigrients().length != 0) {
                             findViewById(R.id.next_btn).setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            findViewById(R.id.next_btn).setVisibility(View.GONE);
+                            findViewById(R.id.text_error).setVisibility(View.VISIBLE);
                         }
 
                         if(Page!=1) {
                             findViewById(R.id.previous_btn).setVisibility(View.VISIBLE);
                         }
+                        Log.v("RECIPE",  Integer.toString(recipesList.getIndigrients().length));
                     }
                 }, 1000);
 
