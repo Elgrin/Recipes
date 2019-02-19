@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_dish"
+            android:layout_marginTop="25dp"
+            android:id="@+id/dish_name_text"/>
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:id="@+id/dish_name_edit"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/dish_name_text"
+            android:layout_marginStart="5dp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_ingredients"
+            android:id="@+id/ingredients_text"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/dish_name_text"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/ingredients_edit"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/ingredients_text"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_search"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/ingredients_edit"
+            android:text="@string/menu_search"
+            android:onClick="SearchRecipes"/>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
