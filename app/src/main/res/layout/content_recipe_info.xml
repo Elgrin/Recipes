@@ -10,22 +10,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="5dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/title_recipe"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
+            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/link_recipe"
-            android:clickable="true"
-            android:focusable="true"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:textColor="@drawable/mailto"/>
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_link"
+                android:text="@string/link_to_recipe"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/link_recipe"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@drawable/mailto" />
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,9 +47,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add to favourite recipes list"
+            android:text="@string/btn_add"
             android:onClick="onSave"
-            android:id="@+id/save_btn"/>
+            android:id="@+id/save_btn"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

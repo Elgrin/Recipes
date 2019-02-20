@@ -1,14 +1,8 @@
 <resources>
     <string name="app_name">Recipes</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Favourites</string>
     <string name="action_delete">Delete favorites list</string>
     <string name="menu_search">Search</string>
-    <string name="menu_favs">Favourite recipes</string>
     <string name="link">www.recipepuppy.com/api/?</string>
     <string name="link_type">format=xml</string>
     <string name="text_dish">Type dish name:</string>
@@ -17,4 +11,13 @@
     <string name="title_activity_recipe_info">RecipeInfo</string>
     <string name="title_activity_web">Web</string>
     <string name="title_activity_favs_list">FavsList</string>
+    <string name="nothing_foung">Nothing found</string>
+    <string name="btn_add">Add to favourite recipes list</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_previous">Previous</string>
+    <string name="link_to_recipe">Link to recipe: </string>
+    <string name="title_favs">List of favourite recipes</string>
+    <string name="title_recipe_info">Information about recipe</string>
+    <string name="title_list_of_recipes">List of recipes</string>
+    <string name="title_settings">Keywords for search</string>
 </resources>

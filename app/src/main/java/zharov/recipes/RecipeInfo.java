@@ -58,7 +58,7 @@ public class RecipeInfo extends AppCompatActivity {
         TextView txt = (TextView)findViewById(R.id.title_recipe);
         txt.setText("Recipe: " +  Title);
         TextView link = (TextView)findViewById(R.id.link_recipe);
-        link.setText("Link to recipe: " + Link);
+        link.setText(Link);
         TextView inds = (TextView)findViewById(R.id.inds_recipe);
         inds.setText("Ingredients: " + Inds);
 

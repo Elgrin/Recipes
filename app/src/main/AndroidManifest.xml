@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".FavsList"
-            android:label="@string/title_activity_favs_list"
+            android:label="@string/title_favs"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Web"
@@ -23,21 +23,20 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RecipeInfo"
-            android:label="@string/title_activity_recipe_info"
+            android:label="@string/title_recipe_info"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ResipeList"
-            android:label="@string/title_activity_resipe_list"
+            android:label="@string/title_list_of_recipes"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_settings"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
