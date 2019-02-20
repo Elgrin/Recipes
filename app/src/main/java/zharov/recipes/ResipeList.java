@@ -59,7 +59,6 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ricipesView.getContext(),
                 DividerItemDecoration.VERTICAL);
         ricipesView.addItemDecoration(dividerItemDecoration);
-        ricipesView.addItemDecoration(dividerItemDecoration);
         ricipesView.setAdapter(adapter);
 
         AsyncCall();
@@ -131,6 +130,8 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
                         //recipesListArray.add(0, "Haha");
                         Log.v("RECIPE",  Integer.toString(recipesListArray.size()));
                         adapter.notifyItemRangeChanged(0, recipesListArray.size());
+
+                        ricipesView.setAdapter(adapter);
 
                         ricipesView.setVisibility(View.VISIBLE);
 
