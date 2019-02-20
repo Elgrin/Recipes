@@ -1,21 +1,13 @@
 package zharov.recipes;
 
-import java.util.concurrent.TimeUnit;
-
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 class MyTask extends AsyncTask<Void, Void, Void> {
 
     private String url;
     private int Page;
-    protected RecipesList rList;
-    protected MyRecyclerViewAdapter adapter;
+    public RecipesList rList;
+    private MyRecyclerViewAdapter adapter;
 
     public interface OnTaskCompleted{
         void onTaskCompleted();

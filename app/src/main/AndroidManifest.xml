@@ -15,7 +15,7 @@
         <activity
             android:name=".FavsList"
             android:label="@string/title_activity_favs_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Web"
             android:label="@string/title_activity_web"

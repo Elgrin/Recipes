@@ -1,20 +1,12 @@
 package zharov.recipes;
 
 
-import java.util.concurrent.TimeUnit;
-
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 class MyTaskLoad extends AsyncTask<Void, Void, Void> {
 
-    protected MyRecyclerViewAdapter adapter;
+    private MyRecyclerViewAdapter adapter;
     private Context context;
     XmlSavedReader xmlSavedReader;
 

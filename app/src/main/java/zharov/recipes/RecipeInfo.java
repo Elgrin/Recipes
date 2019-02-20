@@ -3,8 +3,6 @@ package zharov.recipes;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -42,12 +40,19 @@ public class RecipeInfo extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Title = getIntent().getExtras().getString("recipe");
-        Link = getIntent().getExtras().getString("link");
-        Inds = getIntent().getExtras().getString("inds");
+        if(savedInstanceState != null) {
+            Title = savedInstanceState.getString("title");
+            Link = savedInstanceState.getString("link");
+            Inds = savedInstanceState.getString("inds");
+        }
+        else {
+            Title = getIntent().getExtras().getString("recipe");
+            Link = getIntent().getExtras().getString("link");
+            Inds = getIntent().getExtras().getString("inds");
 
-        if(!getIntent().getExtras().getBoolean("visibility")) {
-            findViewById(R.id.save_btn).setVisibility(View.GONE);
+            if(!getIntent().getExtras().getBoolean("visibility")) {
+                findViewById(R.id.save_btn).setVisibility(View.GONE);
+            }
         }
 
         TextView txt = (TextView)findViewById(R.id.title_recipe);
@@ -162,6 +167,16 @@ public class RecipeInfo extends AppCompatActivity {
             Log.v("Info", "Error writing");
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putString("title", Title);
+        savedInstanceState.putString("link", Link);
+        savedInstanceState.putString("inds", Inds);
     }
 
 }

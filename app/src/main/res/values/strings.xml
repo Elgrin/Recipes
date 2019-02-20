@@ -6,6 +6,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Favourites</string>
+    <string name="action_delete">Delete favorites list</string>
     <string name="menu_search">Search</string>
     <string name="menu_favs">Favourite recipes</string>
     <string name="link">www.recipepuppy.com/api/?</string>

@@ -3,20 +3,16 @@ package zharov.recipes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,7 +25,7 @@ public class FavsList extends AppCompatActivity  implements MyRecyclerViewAdapte
 
     private List<String> recipesListArray = new ArrayList<>();
     private XmlSavedReader recipesList;
-    MyRecyclerViewAdapter adapter;
+    private MyRecyclerViewAdapter adapter;
 
 
     @Override
@@ -71,7 +67,35 @@ public class FavsList extends AppCompatActivity  implements MyRecyclerViewAdapte
         startActivity(intent);
     }
 
-    protected void AsyncCall() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.delete_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_delete: {
+
+                final String filePath = "Save_massive.xml";
+                getApplicationContext().deleteFile(filePath);
+
+                recipesListArray.clear();
+                adapter.notifyItemRangeChanged(0, recipesListArray.size());
+
+                findViewById(R.id.recipes_list).setVisibility(View.GONE);
+
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void AsyncCall() {
 
 
         final String filePath = "Save_massive.xml";
@@ -126,14 +150,16 @@ public class FavsList extends AppCompatActivity  implements MyRecyclerViewAdapte
                             Log.v("RECIPE", Integer.toString(recipesList.getInds().length));
 
                         }
-                    }, 1000);
+                    }, 0);
 
                 }
             });
         }
         else  {
             findViewById(R.id.loading_ring).setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "There is favourite recipes! You can add it on recipe info page", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),
+                    "There is no favourite recipes! You can add it on recipe info page",
+                    Toast.LENGTH_SHORT).show();
         }
 
     }

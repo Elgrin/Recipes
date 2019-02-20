@@ -1,10 +1,10 @@
 package zharov.recipes;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,8 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.support.v7.widget.LinearLayoutManager;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -26,7 +24,7 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
 
     private List<String> recipesListArray = new ArrayList<>();
     private RecipesList recipesList;
-    MyRecyclerViewAdapter adapter;
+    private MyRecyclerViewAdapter adapter;
     private String url;
     private int Page;
 
@@ -38,8 +36,14 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        url = getIntent().getExtras().getString("url");
-        Page = getIntent().getExtras().getInt("page");
+        if(savedInstanceState!=null) {
+            url = savedInstanceState.getString("url");
+            Page = savedInstanceState.getInt("page");
+        }
+        else {
+            url = getIntent().getExtras().getString("url");
+            Page = getIntent().getExtras().getInt("page");
+        }
 
         final RecyclerView ricipesView = findViewById(R.id.recipes_list);
         final ProgressBar ring = findViewById(R.id.loading_ring);
@@ -68,11 +72,12 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
         intent.putExtra("recipe", recipesList.getRecipe()[position]);
         intent.putExtra("link", recipesList.getLink()[position]);
         intent.putExtra("inds", recipesList.getIndigrients()[position]);
+        intent.putExtra("visibility", true);
         startActivity(intent);
     }
 
 
-    protected void AsyncCall() {
+    private void AsyncCall() {
 
 
         findViewById(R.id.loading_ring).setVisibility(View.VISIBLE);
@@ -103,8 +108,6 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
                     public void run() {
 
                         ring.setVisibility(View.GONE);
-
-                        Log.v("RECIPE",  "ZA WARUDO");
                         recipesList = mt.rList;
 
                         if(recipesList == null) {
@@ -151,13 +154,36 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
 
     }
     public void onNextClick(View view) {
-        Page++;
-        AsyncCall();
+        onStep(++Page);
     }
 
     public void onPreviousClick(View view) {
-        Page--;
-        AsyncCall();
+        onStep(--Page);
     }
 
+
+    private void onStep(int page) {
+        if(isOnline()) {
+            Page  = page;
+            AsyncCall();
+        }
+        else {
+            Toast.makeText(getApplicationContext(),
+                    "There is no internet connection! Please check it or try later.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("url", url);
+        savedInstanceState.putInt("page", Page);
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
 }
