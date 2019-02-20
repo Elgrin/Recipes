@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings: {
 
                 Intent intent = new Intent(MainActivity.this, FavsList.class);
-                startActivity(intent);
-
+                //startActivity(intent);
+                startActivityForResult(intent, 0);
                 return true;
             }
             default:
@@ -53,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        onClearEditBoxes();
+    }
+    private void onClearEditBoxes() {
+        ((TextView)findViewById(R.id.dish_name_edit)).setText("");
+        ((TextView)findViewById(R.id.ingredients_edit)).setText("");
+    }
     private boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
@@ -91,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, ResipeList.class);
                         intent.putExtra("url", url);
                         intent.putExtra("page", 1);
-                        startActivity(intent);
+                        //startActivity(intent);
+
+                        startActivityForResult(intent, 0);
                     }
                 }
             }
