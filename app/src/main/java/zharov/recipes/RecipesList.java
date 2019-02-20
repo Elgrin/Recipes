@@ -2,6 +2,7 @@ package zharov.recipes;
 
 import android.util.Log;
 
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -9,6 +10,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -32,8 +34,12 @@ public class RecipesList {
             int Iterator = 0;
 
             String url_s = "http://" + urlString + Page;
+
+            //url_s = UrlEscapers.urlFragmentEscaper().escape(url_s);
+
             URL url = new URL(url_s);
-            Log.v("URL", url_s);
+
+            Log.v("URL_url", url.toString());
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(new InputSource(url.openStream()));

@@ -18,13 +18,14 @@
             android:layout_marginTop="25dp"
             android:id="@+id/dish_name_text"/>
         <EditText
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/dish_name_edit"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/dish_name_text"
             android:layout_marginStart="5dp"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
+            android:layout_marginEnd="10dp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +42,7 @@
             android:layout_below="@+id/ingredients_text"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,"/>
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ, "/>
 
 
         <Button

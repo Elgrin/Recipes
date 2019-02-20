@@ -106,11 +106,29 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
 
                         Log.v("RECIPE",  "ZA WARUDO");
                         recipesList = mt.rList;
+
+                        if(recipesList == null) {
+                            Toast.makeText(getApplicationContext(), "Nothing found!", Toast.LENGTH_SHORT).show();
+
+
+                            findViewById(R.id.next_btn).setVisibility(View.GONE);
+                            if(Page!=1) {
+                                findViewById(R.id.previous_btn).setVisibility(View.VISIBLE);
+                                findViewById(R.id.recipes_list).setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                findViewById(R.id.recipes_list).setVisibility(View.GONE);
+                            }
+                            Page--;
+                            return;
+                        }
+
                         recipesListArray.clear();
                         recipesListArray.addAll(Arrays.asList(recipesList.getRecipe()));
                         //recipesListArray.add(0, "Haha");
                         Log.v("RECIPE",  Integer.toString(recipesListArray.size()));
                         adapter.notifyItemRangeChanged(0, recipesListArray.size());
+
                         ricipesView.setVisibility(View.VISIBLE);
 
                         if(recipesList.getIndigrients().length != 0) {
@@ -126,7 +144,7 @@ public class ResipeList extends AppCompatActivity implements MyRecyclerViewAdapt
                         }
                         Log.v("RECIPE",  Integer.toString(recipesList.getIndigrients().length));
                     }
-                }, 1000);
+                }, 100);
 
             }
         });

@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,47 +74,67 @@ public class FavsList extends AppCompatActivity  implements MyRecyclerViewAdapte
     protected void AsyncCall() {
 
 
-        findViewById(R.id.loading_ring).setVisibility(View.VISIBLE);
-        findViewById(R.id.recipes_list).setVisibility(View.GONE);
-        findViewById(R.id.text_error).setVisibility(View.GONE);
+        final String filePath = "Save_massive.xml";
+        boolean exist = false;
 
-        final MyTaskLoad mt;
-        mt = new MyTaskLoad();
+        //FileInputStream fin;
+        //getActivity().deleteFile(filePath);
+        //Button Save = (Button) view.findViewById(R.id.button_save);
 
-        mt.setAdapter(adapter);
-        mt.setContext(getApplicationContext());
-        mt.execute();
-
-        final RecyclerView ricipesView = findViewById(R.id.recipes_list);
-        final ProgressBar ring = findViewById(R.id.loading_ring);
-
-
-        mt.OnListener(new MyTaskLoad.OnTaskCompleted() {
-            @Override
-            public void onTaskCompleted() {
-
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-
-                        ring.setVisibility(View.GONE);
-
-                        Log.v("RECIPE",  "ZA WARUDO");
-                        recipesList = mt.xmlSavedReader;
-                        recipesListArray.clear();
-                        recipesListArray.addAll(Arrays.asList(recipesList.getRecipe()));
-                        //recipesListArray.add(0, "Haha");
-                        Log.v("RECIPE",  Integer.toString(recipesListArray.size()));
-                        adapter.notifyItemRangeChanged(0, recipesListArray.size());
-                        ricipesView.setVisibility(View.VISIBLE);
-                        Log.v("RECIPE",  Integer.toString(recipesList.getInds().length));
-
-                    }
-                }, 1000);
-
+        String massive[] = getApplicationContext().fileList();
+        for (String s:massive) {
+            if(s.equals(filePath)) {
+                exist = true;
+                break;
             }
-        });
+        }
+
+        if(exist) {
+            findViewById(R.id.loading_ring).setVisibility(View.VISIBLE);
+            findViewById(R.id.recipes_list).setVisibility(View.GONE);
+            findViewById(R.id.text_error).setVisibility(View.GONE);
+
+            final MyTaskLoad mt;
+            mt = new MyTaskLoad();
+
+            mt.setAdapter(adapter);
+            mt.setContext(getApplicationContext());
+            mt.execute();
+
+            final RecyclerView ricipesView = findViewById(R.id.recipes_list);
+            final ProgressBar ring = findViewById(R.id.loading_ring);
+
+            mt.OnListener(new MyTaskLoad.OnTaskCompleted() {
+                @Override
+                public void onTaskCompleted() {
+
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+
+                            ring.setVisibility(View.GONE);
+
+                            Log.v("RECIPE", "ZA WARUDO");
+                            recipesList = mt.xmlSavedReader;
+                            recipesListArray.clear();
+                            recipesListArray.addAll(Arrays.asList(recipesList.getRecipe()));
+                            //recipesListArray.add(0, "Haha");
+                            Log.v("RECIPE", Integer.toString(recipesListArray.size()));
+                            adapter.notifyItemRangeChanged(0, recipesListArray.size());
+                            ricipesView.setVisibility(View.VISIBLE);
+                            Log.v("RECIPE", Integer.toString(recipesList.getInds().length));
+
+                        }
+                    }, 1000);
+
+                }
+            });
+        }
+        else  {
+            findViewById(R.id.loading_ring).setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "There is favourite recipes! You can add it on recipe info page", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

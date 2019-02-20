@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URLEncoder;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -92,13 +94,18 @@ public class MainActivity extends AppCompatActivity
 
                 TextView textViewInd = findViewById(R.id.ingredients_edit);
 
+                //String s = textViewInd.getText().toString().trim();
+
+                //URLEncoder.encode(urlString, "utf-8")
+                //textViewInd.getText().toString().trim()
+                //textViewDish.getText().toString().trim()
                 if (textViewInd != null) {
-                    url += textViewInd.getText() + "&q=";
+                    url += URLEncoder.encode(textViewInd.getText().toString().trim(), "utf-8") + "&q=";
 
                     TextView textViewDish = findViewById(R.id.dish_name_edit);
 
                     if (textViewDish != null) {
-                        url += textViewDish.getText() + "&"
+                        url += URLEncoder.encode(textViewDish.getText().toString().trim(), "utf-8") + "&"
                                 + getResources().getString(R.string.link_type) + "&p=";
 
                         Log.v("URL", url + "1");
